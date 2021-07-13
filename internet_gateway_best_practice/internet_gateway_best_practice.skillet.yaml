@@ -1,12 +1,20 @@
 name: internet_gateway_best_practice
+
 label: Internet Gateway Best Practices
+
 description: Skillet based on Internet Gateway Best Practices docs
+
 type: panos
+
 labels:
-    collection: Unknown
+
+    collection: Best Practices
+
 variables: []
+
 snippets:
--   name: entry-435993
+
+-   name: monitor-interzone-traffic
     xpath: /config/shared/reports
     element: |-
         <entry name="Monitor Interzone Traffic">
@@ -29,7 +37,9 @@ snippets:
           <caption>Monitor Interzone Traffic</caption>
           <query>(rule eq 'interzone-default')</query>
         </entry>
--   name: entry-479477
+    cmd: set
+
+-   name: monitor-policy-tuning
     xpath: /config/shared/reports
     element: |-
         <entry name="Best Practice Policy Tuning">
@@ -54,17 +64,9 @@ snippets:
           <frequency>daily</frequency>
           <query>(rule eq 'Unexpected Port SSL and Web') or (rule eq 'Unknown User SSL and Web') or (rule eq 'Unexpected Traffic') or (rule eq 'Unexpected Port Usage')</query>
         </entry>
--   name: entry-507954
-    xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/tag
-    element: |-
-        <entry name="Best Practice">
-          <color>color22</color>
-          <comments>internet gateway best practices</comments>
-        </entry>
--   name: hostname-633971
-    xpath: /config/devices/entry[@name="localhost.localdomain"]/deviceconfig/system
-    element: <hostname>panos-ep</hostname>
--   name: entry-856096
+    cmd: set
+
+-   name: service-quic-udp
     xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/service
     element: |-
         <entry name="quic_udp_ports">
@@ -77,7 +79,9 @@ snippets:
             </udp>
           </protocol>
         </entry>
--   name: entry-599300
+    cmd: set
+
+-   name: bp-av-profile
     xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/profiles/virus
     element: |-
         <entry name="Strict-AV">
@@ -133,7 +137,9 @@ snippets:
             </entry>
           </mlav-engine-filebased-enabled>
         </entry>
--   name: entry-480993
+    cmd: set
+
+-   name: bp-vuln-profile
     xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/profiles/vulnerability
     element: |-
         <entry name="best-practice-vulnerability">
@@ -320,7 +326,9 @@ snippets:
             </entry>
           </rules>
         </entry>
--   name: entry-237620
+    cmd: set
+
+-   name: bp-spyware-profile
     xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/profiles/spyware
     element: |-
         <entry name="best-practice">
@@ -438,7 +446,9 @@ snippets:
             </sinkhole>
           </botnet-domains>
         </entry>
--   name: entry-134900
+    cmd: set
+
+-   name: bp-url-profile
     xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/profiles/url-filtering
     element: |-
         <entry name="best-practice">
@@ -547,7 +557,9 @@ snippets:
             </entry>
           </mlav-engine-urlbased-enabled>
         </entry>
--   name: entry-781073
+    cmd: set
+
+-   name: bp-wildfire
     xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/profiles/wildfire-analysis
     element: |-
         <entry name="best-practice-wildfire">
@@ -564,7 +576,9 @@ snippets:
             </entry>
           </rules>
         </entry>
--   name: entry-595588
+    cmd: set
+
+-   name: bp-decryption-profile
     xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/profiles/decryption
     element: |-
         <entry name="Tight TLS Control">
@@ -590,7 +604,9 @@ snippets:
             <block-untrusted-issuer>yes</block-untrusted-issuer>
           </ssl-no-proxy>
         </entry>
--   name: entry-684646
+    cmd: set
+
+-   name: drop-outbound-malicious-ip
     xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/rulebase/security/rules
     element: |-
         <entry name="Drop Outbound Malicious IP">
@@ -626,7 +642,9 @@ snippets:
           </destination-hip>
           <action>deny</action>
         </entry>
--   name: entry-871338
+    cmd: set
+
+-   name: drop-inbound-malicious-ip
     xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/rulebase/security/rules
     element: |-
         <entry name="Drop Inbound Malicious IP">
@@ -662,7 +680,9 @@ snippets:
           </destination-hip>
           <action>deny</action>
         </entry>
--   name: entry-320493
+    cmd: set
+
+-   name: drop-outbound-bulletproof-ip
     xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/rulebase/security/rules
     element: |-
         <entry name="Drop Outbound Bulletproof IP">
@@ -698,7 +718,9 @@ snippets:
           </destination-hip>
           <action>deny</action>
         </entry>
--   name: entry-818008
+    cmd: set
+
+-   name: drop-inbound-bulletproof-ip
     xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/rulebase/security/rules
     element: |-
         <entry name="Drop Inbound Bulletproof IP">
@@ -734,7 +756,9 @@ snippets:
           </destination-hip>
           <action>deny</action>
         </entry>
--   name: entry-952990
+    cmd: set
+
+-   name: drop-outbound-highrisk-ip
     xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/rulebase/security/rules
     element: |-
         <entry name="Drop Outbound High Risk IP">
@@ -770,7 +794,9 @@ snippets:
           </destination-hip>
           <action>deny</action>
         </entry>
--   name: entry-741820
+    cmd: set
+
+-   name: drop-inbound-highrisk-ip
     xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/rulebase/security/rules
     element: |-
         <entry name="Drop Inbound High Risk IP">
@@ -806,6 +832,5 @@ snippets:
           </destination-hip>
           <action>deny</action>
         </entry>
--   name: action-310984
-    xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/rulebase/default-security-rules/rules/entry[@name="interzone-default"]
-    element: <action>deny</action>
+    cmd: set
+
